@@ -1,21 +1,21 @@
 syntax = "proto3";
 
-package com.github.proto;
+   package com.github.proto;
 
 
-option java_package = "com.github.proto";
-option java_outer_classname = "GrpcStudentProto";
-option java_multiple_files = true;
+   option java_package = "com.github.proto";
+   option java_outer_classname = "GrpcStudentProto";
+   option java_multiple_files = true;
 
 
-message MyRequest {
-     string name = 1;
-}
+   message MyRequest {
+        string name = 1;
+   }
 
-message MyResponse {
-   string realname = 2;
-}
+   message MyResponse {
+      string realname = 2;
+   }
 
-service GrpcStudentProtoService {
-    rpc GetName(MyRequest) return (MyResponse) {  }
-}
+   service GrpcStudentProtoService {
+       rpc GetName(MyRequest) returns (MyResponse) {  }
+   }
