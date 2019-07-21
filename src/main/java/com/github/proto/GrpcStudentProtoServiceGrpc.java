@@ -1,24 +1,24 @@
 package com.github.proto;
 
-import static io.grpc.MethodDescriptor.generateFullMethodName;
-import static io.grpc.stub.ClientCalls.asyncBidiStreamingCall;
-import static io.grpc.stub.ClientCalls.asyncClientStreamingCall;
-import static io.grpc.stub.ClientCalls.asyncServerStreamingCall;
 import static io.grpc.stub.ClientCalls.asyncUnaryCall;
-import static io.grpc.stub.ClientCalls.blockingServerStreamingCall;
+import static io.grpc.stub.ClientCalls.asyncServerStreamingCall;
+import static io.grpc.stub.ClientCalls.asyncClientStreamingCall;
+import static io.grpc.stub.ClientCalls.asyncBidiStreamingCall;
 import static io.grpc.stub.ClientCalls.blockingUnaryCall;
+import static io.grpc.stub.ClientCalls.blockingServerStreamingCall;
 import static io.grpc.stub.ClientCalls.futureUnaryCall;
-import static io.grpc.stub.ServerCalls.asyncBidiStreamingCall;
-import static io.grpc.stub.ServerCalls.asyncClientStreamingCall;
-import static io.grpc.stub.ServerCalls.asyncServerStreamingCall;
+import static io.grpc.MethodDescriptor.generateFullMethodName;
 import static io.grpc.stub.ServerCalls.asyncUnaryCall;
-import static io.grpc.stub.ServerCalls.asyncUnimplementedStreamingCall;
+import static io.grpc.stub.ServerCalls.asyncServerStreamingCall;
+import static io.grpc.stub.ServerCalls.asyncClientStreamingCall;
+import static io.grpc.stub.ServerCalls.asyncBidiStreamingCall;
 import static io.grpc.stub.ServerCalls.asyncUnimplementedUnaryCall;
+import static io.grpc.stub.ServerCalls.asyncUnimplementedStreamingCall;
 
 /**
  */
 @javax.annotation.Generated(
-    value = "by gRPC proto compiler (version 1.10.0)",
+    value = "by gRPC proto compiler (version 1.7.1)",
     comments = "Source: src/main/proto/GrpcStudend.porto")
 public final class GrpcStudentProtoServiceGrpc {
 
@@ -28,42 +28,57 @@ public final class GrpcStudentProtoServiceGrpc {
 
   // Static method descriptors that strictly reflect the proto.
   @io.grpc.ExperimentalApi("https://github.com/grpc/grpc-java/issues/1901")
-  @java.lang.Deprecated // Use {@link #getGetNameMethod()} instead. 
   public static final io.grpc.MethodDescriptor<com.github.proto.MyRequest,
-      com.github.proto.MyResponse> METHOD_GET_NAME = getGetNameMethodHelper();
-
-  private static volatile io.grpc.MethodDescriptor<com.github.proto.MyRequest,
-      com.github.proto.MyResponse> getGetNameMethod;
-
+      com.github.proto.MyResponse> METHOD_GET_NAME =
+      io.grpc.MethodDescriptor.<com.github.proto.MyRequest, com.github.proto.MyResponse>newBuilder()
+          .setType(io.grpc.MethodDescriptor.MethodType.UNARY)
+          .setFullMethodName(generateFullMethodName(
+              "com.github.proto.GrpcStudentProtoService", "GetName"))
+          .setRequestMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
+              com.github.proto.MyRequest.getDefaultInstance()))
+          .setResponseMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
+              com.github.proto.MyResponse.getDefaultInstance()))
+          .setSchemaDescriptor(new GrpcStudentProtoServiceMethodDescriptorSupplier("GetName"))
+          .build();
   @io.grpc.ExperimentalApi("https://github.com/grpc/grpc-java/issues/1901")
-  public static io.grpc.MethodDescriptor<com.github.proto.MyRequest,
-      com.github.proto.MyResponse> getGetNameMethod() {
-    return getGetNameMethodHelper();
-  }
-
-  private static io.grpc.MethodDescriptor<com.github.proto.MyRequest,
-      com.github.proto.MyResponse> getGetNameMethodHelper() {
-    io.grpc.MethodDescriptor<com.github.proto.MyRequest, com.github.proto.MyResponse> getGetNameMethod;
-    if ((getGetNameMethod = GrpcStudentProtoServiceGrpc.getGetNameMethod) == null) {
-      synchronized (GrpcStudentProtoServiceGrpc.class) {
-        if ((getGetNameMethod = GrpcStudentProtoServiceGrpc.getGetNameMethod) == null) {
-          GrpcStudentProtoServiceGrpc.getGetNameMethod = getGetNameMethod = 
-              io.grpc.MethodDescriptor.<com.github.proto.MyRequest, com.github.proto.MyResponse>newBuilder()
-              .setType(io.grpc.MethodDescriptor.MethodType.UNARY)
-              .setFullMethodName(generateFullMethodName(
-                  "com.github.proto.GrpcStudentProtoService", "GetName"))
-              .setSampledToLocalTracing(true)
-              .setRequestMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
-                  com.github.proto.MyRequest.getDefaultInstance()))
-              .setResponseMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
-                  com.github.proto.MyResponse.getDefaultInstance()))
-                  .setSchemaDescriptor(new GrpcStudentProtoServiceMethodDescriptorSupplier("GetName"))
-                  .build();
-          }
-        }
-     }
-     return getGetNameMethod;
-  }
+  public static final io.grpc.MethodDescriptor<com.github.proto.StudentRequest,
+      com.github.proto.StudentResponse> METHOD_GET_STUNDET_BY_AGE =
+      io.grpc.MethodDescriptor.<com.github.proto.StudentRequest, com.github.proto.StudentResponse>newBuilder()
+          .setType(io.grpc.MethodDescriptor.MethodType.SERVER_STREAMING)
+          .setFullMethodName(generateFullMethodName(
+              "com.github.proto.GrpcStudentProtoService", "GetStundetByAge"))
+          .setRequestMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
+              com.github.proto.StudentRequest.getDefaultInstance()))
+          .setResponseMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
+              com.github.proto.StudentResponse.getDefaultInstance()))
+          .setSchemaDescriptor(new GrpcStudentProtoServiceMethodDescriptorSupplier("GetStundetByAge"))
+          .build();
+  @io.grpc.ExperimentalApi("https://github.com/grpc/grpc-java/issues/1901")
+  public static final io.grpc.MethodDescriptor<com.github.proto.StudentRequest,
+      com.github.proto.StudentResponseList> METHOD_GET_STUDENTS_WEAPPER_BYAGE =
+      io.grpc.MethodDescriptor.<com.github.proto.StudentRequest, com.github.proto.StudentResponseList>newBuilder()
+          .setType(io.grpc.MethodDescriptor.MethodType.CLIENT_STREAMING)
+          .setFullMethodName(generateFullMethodName(
+              "com.github.proto.GrpcStudentProtoService", "GetStudentsWeapperByage"))
+          .setRequestMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
+              com.github.proto.StudentRequest.getDefaultInstance()))
+          .setResponseMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
+              com.github.proto.StudentResponseList.getDefaultInstance()))
+          .setSchemaDescriptor(new GrpcStudentProtoServiceMethodDescriptorSupplier("GetStudentsWeapperByage"))
+          .build();
+  @io.grpc.ExperimentalApi("https://github.com/grpc/grpc-java/issues/1901")
+  public static final io.grpc.MethodDescriptor<com.github.proto.StreamRequest,
+      com.github.proto.StreamResponse> METHOD_BI_TALK =
+      io.grpc.MethodDescriptor.<com.github.proto.StreamRequest, com.github.proto.StreamResponse>newBuilder()
+          .setType(io.grpc.MethodDescriptor.MethodType.BIDI_STREAMING)
+          .setFullMethodName(generateFullMethodName(
+              "com.github.proto.GrpcStudentProtoService", "BiTalk"))
+          .setRequestMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
+              com.github.proto.StreamRequest.getDefaultInstance()))
+          .setResponseMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
+              com.github.proto.StreamResponse.getDefaultInstance()))
+          .setSchemaDescriptor(new GrpcStudentProtoServiceMethodDescriptorSupplier("BiTalk"))
+          .build();
 
   /**
    * Creates a new async stub that supports all call types for the service
@@ -96,18 +111,60 @@ public final class GrpcStudentProtoServiceGrpc {
      */
     public void getName(com.github.proto.MyRequest request,
         io.grpc.stub.StreamObserver<com.github.proto.MyResponse> responseObserver) {
-      asyncUnimplementedUnaryCall(getGetNameMethodHelper(), responseObserver);
+      asyncUnimplementedUnaryCall(METHOD_GET_NAME, responseObserver);
+    }
+
+    /**
+     */
+    public void getStundetByAge(com.github.proto.StudentRequest request,
+        io.grpc.stub.StreamObserver<com.github.proto.StudentResponse> responseObserver) {
+      asyncUnimplementedUnaryCall(METHOD_GET_STUNDET_BY_AGE, responseObserver);
+    }
+
+    /**
+     */
+    public io.grpc.stub.StreamObserver<com.github.proto.StudentRequest> getStudentsWeapperByage(
+        io.grpc.stub.StreamObserver<com.github.proto.StudentResponseList> responseObserver) {
+      return asyncUnimplementedStreamingCall(METHOD_GET_STUDENTS_WEAPPER_BYAGE, responseObserver);
+    }
+
+    /**
+     */
+    public io.grpc.stub.StreamObserver<com.github.proto.StreamRequest> biTalk(
+        io.grpc.stub.StreamObserver<com.github.proto.StreamResponse> responseObserver) {
+      return asyncUnimplementedStreamingCall(METHOD_BI_TALK, responseObserver);
     }
 
     @java.lang.Override public final io.grpc.ServerServiceDefinition bindService() {
       return io.grpc.ServerServiceDefinition.builder(getServiceDescriptor())
           .addMethod(
-            getGetNameMethodHelper(),
+            METHOD_GET_NAME,
             asyncUnaryCall(
               new MethodHandlers<
                 com.github.proto.MyRequest,
                 com.github.proto.MyResponse>(
                   this, METHODID_GET_NAME)))
+          .addMethod(
+            METHOD_GET_STUNDET_BY_AGE,
+            asyncServerStreamingCall(
+              new MethodHandlers<
+                com.github.proto.StudentRequest,
+                com.github.proto.StudentResponse>(
+                  this, METHODID_GET_STUNDET_BY_AGE)))
+          .addMethod(
+            METHOD_GET_STUDENTS_WEAPPER_BYAGE,
+            asyncClientStreamingCall(
+              new MethodHandlers<
+                com.github.proto.StudentRequest,
+                com.github.proto.StudentResponseList>(
+                  this, METHODID_GET_STUDENTS_WEAPPER_BYAGE)))
+          .addMethod(
+            METHOD_BI_TALK,
+            asyncBidiStreamingCall(
+              new MethodHandlers<
+                com.github.proto.StreamRequest,
+                com.github.proto.StreamResponse>(
+                  this, METHODID_BI_TALK)))
           .build();
     }
   }
@@ -135,7 +192,31 @@ public final class GrpcStudentProtoServiceGrpc {
     public void getName(com.github.proto.MyRequest request,
         io.grpc.stub.StreamObserver<com.github.proto.MyResponse> responseObserver) {
       asyncUnaryCall(
-          getChannel().newCall(getGetNameMethodHelper(), getCallOptions()), request, responseObserver);
+          getChannel().newCall(METHOD_GET_NAME, getCallOptions()), request, responseObserver);
+    }
+
+    /**
+     */
+    public void getStundetByAge(com.github.proto.StudentRequest request,
+        io.grpc.stub.StreamObserver<com.github.proto.StudentResponse> responseObserver) {
+      asyncServerStreamingCall(
+          getChannel().newCall(METHOD_GET_STUNDET_BY_AGE, getCallOptions()), request, responseObserver);
+    }
+
+    /**
+     */
+    public io.grpc.stub.StreamObserver<com.github.proto.StudentRequest> getStudentsWeapperByage(
+        io.grpc.stub.StreamObserver<com.github.proto.StudentResponseList> responseObserver) {
+      return asyncClientStreamingCall(
+          getChannel().newCall(METHOD_GET_STUDENTS_WEAPPER_BYAGE, getCallOptions()), responseObserver);
+    }
+
+    /**
+     */
+    public io.grpc.stub.StreamObserver<com.github.proto.StreamRequest> biTalk(
+        io.grpc.stub.StreamObserver<com.github.proto.StreamResponse> responseObserver) {
+      return asyncBidiStreamingCall(
+          getChannel().newCall(METHOD_BI_TALK, getCallOptions()), responseObserver);
     }
   }
 
@@ -161,7 +242,15 @@ public final class GrpcStudentProtoServiceGrpc {
      */
     public com.github.proto.MyResponse getName(com.github.proto.MyRequest request) {
       return blockingUnaryCall(
-          getChannel(), getGetNameMethodHelper(), getCallOptions(), request);
+          getChannel(), METHOD_GET_NAME, getCallOptions(), request);
+    }
+
+    /**
+     */
+    public java.util.Iterator<com.github.proto.StudentResponse> getStundetByAge(
+        com.github.proto.StudentRequest request) {
+      return blockingServerStreamingCall(
+          getChannel(), METHOD_GET_STUNDET_BY_AGE, getCallOptions(), request);
     }
   }
 
@@ -188,11 +277,14 @@ public final class GrpcStudentProtoServiceGrpc {
     public com.google.common.util.concurrent.ListenableFuture<com.github.proto.MyResponse> getName(
         com.github.proto.MyRequest request) {
       return futureUnaryCall(
-          getChannel().newCall(getGetNameMethodHelper(), getCallOptions()), request);
+          getChannel().newCall(METHOD_GET_NAME, getCallOptions()), request);
     }
   }
 
   private static final int METHODID_GET_NAME = 0;
+  private static final int METHODID_GET_STUNDET_BY_AGE = 1;
+  private static final int METHODID_GET_STUDENTS_WEAPPER_BYAGE = 2;
+  private static final int METHODID_BI_TALK = 3;
 
   private static final class MethodHandlers<Req, Resp> implements
       io.grpc.stub.ServerCalls.UnaryMethod<Req, Resp>,
@@ -215,6 +307,10 @@ public final class GrpcStudentProtoServiceGrpc {
           serviceImpl.getName((com.github.proto.MyRequest) request,
               (io.grpc.stub.StreamObserver<com.github.proto.MyResponse>) responseObserver);
           break;
+        case METHODID_GET_STUNDET_BY_AGE:
+          serviceImpl.getStundetByAge((com.github.proto.StudentRequest) request,
+              (io.grpc.stub.StreamObserver<com.github.proto.StudentResponse>) responseObserver);
+          break;
         default:
           throw new AssertionError();
       }
@@ -225,6 +321,12 @@ public final class GrpcStudentProtoServiceGrpc {
     public io.grpc.stub.StreamObserver<Req> invoke(
         io.grpc.stub.StreamObserver<Resp> responseObserver) {
       switch (methodId) {
+        case METHODID_GET_STUDENTS_WEAPPER_BYAGE:
+          return (io.grpc.stub.StreamObserver<Req>) serviceImpl.getStudentsWeapperByage(
+              (io.grpc.stub.StreamObserver<com.github.proto.StudentResponseList>) responseObserver);
+        case METHODID_BI_TALK:
+          return (io.grpc.stub.StreamObserver<Req>) serviceImpl.biTalk(
+              (io.grpc.stub.StreamObserver<com.github.proto.StreamResponse>) responseObserver);
         default:
           throw new AssertionError();
       }
@@ -276,7 +378,10 @@ public final class GrpcStudentProtoServiceGrpc {
         if (result == null) {
           serviceDescriptor = result = io.grpc.ServiceDescriptor.newBuilder(SERVICE_NAME)
               .setSchemaDescriptor(new GrpcStudentProtoServiceFileDescriptorSupplier())
-              .addMethod(getGetNameMethodHelper())
+              .addMethod(METHOD_GET_NAME)
+              .addMethod(METHOD_GET_STUNDET_BY_AGE)
+              .addMethod(METHOD_GET_STUDENTS_WEAPPER_BYAGE)
+              .addMethod(METHOD_BI_TALK)
               .build();
         }
       }

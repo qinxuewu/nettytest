@@ -1,21 +1,51 @@
 syntax = "proto3";
 
-   package com.github.proto;
+package com.github.proto;
 
 
-   option java_package = "com.github.proto";
-   option java_outer_classname = "GrpcStudentProto";
-   option java_multiple_files = true;
+option java_package = "com.github.proto";
+option java_outer_classname = "GrpcStudentProto";
+option java_multiple_files = true;
 
 
-   message MyRequest {
-        string name = 1;
-   }
+message MyRequest {
+     string name = 1;
+}
 
-   message MyResponse {
-      string realname = 2;
-   }
+message MyResponse {
+   string realname = 2;
+}
 
-   service GrpcStudentProtoService {
-       rpc GetName(MyRequest) returns (MyResponse) {  }
-   }
+message StudentResponse {
+       string name = 1;
+       int32 age = 2;
+       string city = 3;
+}
+
+message StudentRequest {
+    int32 age = 1;
+}
+
+message StudentResponseList {
+    repeated StudentResponse  studentResponse = 1;
+}
+
+message StreamRequest {
+    string request_info= 1;
+}
+message StreamResponse {
+    string request_info= 1;
+}
+
+
+
+service GrpcStudentProtoService {
+    rpc GetName(MyRequest) returns (MyResponse) {  }
+
+    rpc GetStundetByAge(StudentRequest) returns (stream StudentResponse) {}
+
+    rpc GetStudentsWeapperByage(stream StudentRequest) returns (StudentResponseList){}
+
+    rpc BiTalk(stream StreamRequest) returns (stream StreamResponse){}
+}
+
