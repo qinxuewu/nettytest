@@ -1,13 +1,17 @@
 package com.github.nio;
 
 
+import org.omg.PortableServer.POA;
+
 import java.net.InetSocketAddress;
+import java.net.ServerSocket;
 import java.nio.ByteBuffer;
 import java.nio.channels.SelectionKey;
 import java.nio.channels.Selector;
 import java.nio.channels.ServerSocketChannel;
 import java.nio.channels.SocketChannel;
 import java.util.Iterator;
+import java.util.Set;
 
 /**
  *
@@ -24,70 +28,79 @@ public class SelectorTest1 {
 
 
     public static void main(String[] args) throws  Exception {
-        // 打开服务端 Socket
-        ServerSocketChannel serverSocketChannel = ServerSocketChannel.open();
-
+        // 定义5个端口号
+        int [] prots=new int[5];
+        prots[0]=5000;
+        prots[1]=5001;
+        prots[2]=5002;
+        prots[3]=5003;
+        prots[4]=5004;
+        
         // 打开Selector
         Selector selector=Selector.open();
 
-        // 监听端口 并设置为非阻塞模式
-        serverSocketChannel.socket().bind(new InetSocketAddress(8899));
-        serverSocketChannel.configureBlocking(false);
+        for (int i = 0; i < prots.length; ++i) {
+                ServerSocketChannel serverSocketChannel=ServerSocketChannel.open();
+                // 非阻塞模式
+                serverSocketChannel.configureBlocking(false);
+                ServerSocket serverSocket=serverSocketChannel.socket();
+                InetSocketAddress address=new InetSocketAddress(prots[i]);
+                // 绑定端口号
+                serverSocket.bind(address);
 
-        // 将channel 注册到 selector 中
-        serverSocketChannel.register(selector, SelectionKey.OP_ACCEPT);
-
-        while (true) {
-            // 调用select 方法 阻塞等待channel I/O操作
-            if(selector.select(3000) == 0){
-                System.out.print(".");
-                continue;
-            }
-
-            // 获取 I/O 操作就绪的 SelectionKey, 通过 SelectionKey 可以知道哪些 Channel 的哪类 I/O 操作已经就绪.
-            Iterator<SelectionKey> keyIterator = selector.selectedKeys().iterator();
-            while (keyIterator.hasNext()){
-                SelectionKey key = keyIterator.next();
-                // 当获取一个 SelectionKey 后, 就要将它删除, 表示我们已经对这个 IO 事件进行了处理.
-                keyIterator.remove();
-                if(key.isAcceptable()){
-                    // 当 OP_ACCEPT 事件到来时, 我们就有从 ServerSocketChannel 中获取一个 SocketChannel,
-                    // 代表客户端的连接
-                    // 注意, 在 OP_ACCEPT 事件中, 从 key.channel() 返回的 Channel 是 ServerSocketChannel.
-                    // 而在 OP_WRITE 和 OP_READ 中, 从 key.channel() 返回的是 SocketChannel.
-                    SocketChannel clientChannel = ((ServerSocketChannel) key.channel()).accept();
-                    clientChannel.configureBlocking(false);
-
-                    //在 OP_ACCEPT 到来时, 再将这个 Channel 的 OP_READ 注册到 Selector 中.
-                    // 注意, 这里我们如果没有设置 OP_READ 的话, 即 interest set 仍然是 OP_CONNECT 的话, 那么 select 方法会一直直接返回.
-                    clientChannel.register(key.selector(), 4, ByteBuffer.allocate(256));
-                }
-
-                if (key.isReadable()) {
-                    SocketChannel clientChannel = (SocketChannel) key.channel();
-                    ByteBuffer buf = (ByteBuffer) key.attachment();
-                    long bytesRead = clientChannel.read(buf);
-                    if (bytesRead == -1) {
-                        clientChannel.close();
-                    } else if (bytesRead > 0) {
-                        key.interestOps(4 | SelectionKey.OP_WRITE);
-                        System.out.println("Get data length: " + bytesRead);
-                    }
-                }
-
-                if (key.isValid() && key.isWritable()) {
-                    ByteBuffer buf = (ByteBuffer) key.attachment();
-                    buf.flip();
-                    SocketChannel clientChannel = (SocketChannel) key.channel();
-
-                    clientChannel.write(buf);
-
-                    if (!buf.hasRemaining()) {
-                        key.interestOps(4);
-                    }
-                    buf.compact();
-                }
-            }
+                // 将当前selector 注册到channel  事件为接收连接
+                serverSocketChannel.register(selector,SelectionKey.OP_ACCEPT);
+                System.out.println("监听端口： "+prots[i]);
         }
+
+        while (true){
+            int numbers=selector.select();
+            System.out.println("numbrs: "+numbers);
+            Set<SelectionKey> selectionKeys=selector.selectedKeys();
+            Iterator<SelectionKey> iter=selectionKeys.iterator();
+
+            while (iter.hasNext()){
+                SelectionKey selectionKey=iter.next();
+                //  是否连接
+                if(selectionKey.isAcceptable()) {
+                        ServerSocketChannel serverSocketChannel = (ServerSocketChannel) selectionKey.channel();
+                        SocketChannel socketChannel = serverSocketChannel.accept(); // 建立连接
+                        // 非阻塞
+                        socketChannel.configureBlocking(false);
+
+                        socketChannel.register(selector, SelectionKey.OP_READ);  // 注册 ，读事件
+
+                        iter.remove(); //从当前Selection删除已注册的连接
+
+                        System.out.println("获得客户端的连接：" + socketChannel);
+                }else if (selectionKey.isReadable()){
+                    // 读取
+                    SocketChannel socketChannel=(SocketChannel) selectionKey.channel();
+
+                    int byteRead=0;
+                    while (true){
+                        ByteBuffer byteBuffer=ByteBuffer.allocate(512);
+
+                        //  clear方法 将 positin 设置为0, 将 limit 设置为 capacity;在一个已经写满数据的 buffer 中, 调用 clear, 可以从头读取 buffer 的数据.
+                        byteBuffer.clear();
+                        int read=socketChannel.read(byteBuffer);
+
+                        if(read<=0){
+                            break;  //读完了
+                        }
+
+                        // 进行写  返回给客户端
+                        byteBuffer.flip();
+                        socketChannel.write(byteBuffer);
+
+                        byteRead+=read;
+                    }
+                    System.out.println("读取 ："+byteRead +" ,来自客户端:"+socketChannel);
+                    iter.remove();
+                }
+            }
+
+        }
+
     }
 }
