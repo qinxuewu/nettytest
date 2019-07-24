@@ -62,13 +62,34 @@
 - 通过 Selector.open() 打开一个 Selector.
 - 将 Channel 注册到 Selector 中, 并设置需要监听的事件(interest set)
 - 不断重复:调用 select() 方法; 调用 selector.selectedKeys() 获取 selected keys; 迭代每个 selected key:
+- select()方法介绍: 在刚初始化的Selector对象中，这三个集合都是空的。 通过Selector的select（）方法可以选择已经准备就绪的通道 
 - 从 selected key 中获取 对应的 Channel 和附加信息(如果有的话)
 - 判断是哪些 IO 事件已经就绪了, 然后处理它们. 如果是 OP_ACCEPT 事件 则调用 "SocketChannel clientChannel = ((ServerSocketChannel) key.channel()).accept()" 获取 SocketChannel, 并将它设置为 非阻塞的, 然后将这个 Channel 注册到 Selector 中.
 - 根据需要更改 selected key 的监听事件
 - 将已经处理过的 key 从 selected keys 集合中删除
 - 当调用了 Selector.close()方法时, 我们其实是关闭了 Selector 本身并且将所有的 SelectionKey 失效, 但是并不会关闭 Channel.
 
+## SelectionKey介绍
+- 一个SelectionKey键表示了一个特定的通道对象和一个特定的选择器对象之间的注册关系。
+
+```
+key.attachment(); //返回SelectionKey的attachment，attachment可以在注册channel的时候指定。
+key.channel(); // 返回该SelectionKey对应的channel。
+key.selector(); // 返回该SelectionKey对应的Selector。
+key.interestOps(); //返回代表需要Selector监控的IO操作的bit mask
+key.readyOps(); // 返回一个bit mask，代表在相应channel上可以进行的IO操作。
+```
+## select()方法介绍：
+- 在刚初始化的Selector对象中，这三个集合都是空的。 通过Selector的select（）方法可以选择已经准备就绪的通道;些通道包含你感兴趣的的事件
+- 比如你对读就绪的通道感兴趣，那么select（）方法就会返回读事件已经就绪的那些通道
+
+``
+int select()：阻塞到至少有一个通道在你注册的事件上就绪了。
+int select(long timeout)：和select()一样，但最长阻塞时间为timeout毫秒。
+int selectNow()：非阻塞，只要有通道就绪就立刻返回。
+``
 
 # 参考
 - netty高并发-张龙
 - https://segmentfault.com/a/1190000006824091
+- https://www.cnblogs.com/snailclimb/p/9086334.html
