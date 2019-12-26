@@ -1,4 +1,4 @@
-package com.github.protobuf;
+package com.github.netty.test5;
 
 import io.netty.bootstrap.ServerBootstrap;
 import io.netty.channel.ChannelFuture;
@@ -8,17 +8,17 @@ import io.netty.channel.socket.nio.NioServerSocketChannel;
 import io.netty.handler.logging.LogLevel;
 import io.netty.handler.logging.LoggingHandler;
 
+import java.net.InetSocketAddress;
+
 /**
- *  protobuf集成Netty与多协议消息传递
- *
- * @author qinxuewu
- * @create 19/7/16下午9:31
- * @since 1.0.0
+ *  10_Netty对WebSocket的支援
+ * @author qxw
+ * @version 1.00
+ * @time  15/7/2019 下午 1:00
  */
+public class MyWebScokerServer {
 
-
-public class ProtoServer {
-    public static void main(String[] args) throws  Exception {
+    public static void main(String[] args) throws Exception {
         // 建立连接的线程
         EventLoopGroup bossGroup=new NioEventLoopGroup();
         // 处理连接
@@ -27,9 +27,9 @@ public class ProtoServer {
             ServerBootstrap serverBootstrap=new ServerBootstrap();
             serverBootstrap.group(bossGroup,workGroup).channel(NioServerSocketChannel.class)
                     .handler(new LoggingHandler(LogLevel.INFO)) // 日志haner
-                    .childHandler(new ProtoServerInitalizr());
+                    .childHandler(new MyWebScokerServerInitailzr());
 
-            ChannelFuture future=serverBootstrap.bind(8899).sync();
+            ChannelFuture future=serverBootstrap.bind(new InetSocketAddress(8899)).sync();
             future.channel().closeFuture().sync();
         }finally {
             // 优雅关闭

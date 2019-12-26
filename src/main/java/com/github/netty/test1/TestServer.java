@@ -1,34 +1,34 @@
-package com.github.protobuf;
+package com.github.netty.test1;
 
 import io.netty.bootstrap.ServerBootstrap;
 import io.netty.channel.ChannelFuture;
 import io.netty.channel.EventLoopGroup;
 import io.netty.channel.nio.NioEventLoopGroup;
 import io.netty.channel.socket.nio.NioServerSocketChannel;
-import io.netty.handler.logging.LogLevel;
-import io.netty.handler.logging.LoggingHandler;
 
 /**
- *  protobuf集成Netty与多协议消息传递
+ *  netty 实现http  demo
  *
  * @author qinxuewu
- * @create 19/7/16下午9:31
+ * @create 19/7/12上午8:20
  * @since 1.0.0
  */
 
 
-public class ProtoServer {
-    public static void main(String[] args) throws  Exception {
+public class TestServer {
+
+
+    // netty实现的http请求    控制台测试：  curl "http://localhost:8899"
+    public static void main(String[] args) throws Exception {
         // 建立连接的线程
         EventLoopGroup bossGroup=new NioEventLoopGroup();
         // 处理连接
         EventLoopGroup workGroup=new NioEventLoopGroup();
+
         try {
             ServerBootstrap serverBootstrap=new ServerBootstrap();
             serverBootstrap.group(bossGroup,workGroup).channel(NioServerSocketChannel.class)
-                    .handler(new LoggingHandler(LogLevel.INFO)) // 日志haner
-                    .childHandler(new ProtoServerInitalizr());
-
+                    .childHandler(new TestServerlnitailzr()); // 定义初始化器  可以添加多个hander
             ChannelFuture future=serverBootstrap.bind(8899).sync();
             future.channel().closeFuture().sync();
         }finally {
