@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/../design-patterns-notes/design-patterns-notes.iml" filepath="$PROJECT_DIR$/../design-patterns-notes/design-patterns-notes.iml" />
+      <module fileurl="file://$PROJECT_DIR$/../leetcodeJava/leetcodeJava.iml" filepath="$PROJECT_DIR$/../leetcodeJava/leetcodeJava.iml" />
+      <module fileurl="file://$PROJECT_DIR$/../nettybook2-master/nettybook2.iml" filepath="$PROJECT_DIR$/../nettybook2-master/nettybook2.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/nettytest.iml" filepath="$PROJECT_DIR$/.idea/nettytest.iml" />
+    </modules>
+  </component>
+</project>

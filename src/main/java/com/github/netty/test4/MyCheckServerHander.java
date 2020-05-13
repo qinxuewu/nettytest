@@ -34,4 +34,6 @@ public class MyCheckServerHander extends ChannelInboundHandlerAdapter {
             ctx.channel().close();
         }
     }
+
+
 }
